@@ -1,0 +1,23 @@
+<ion-view>
+<div>
+    <span>年月日</span>
+    <input ng-model="mydate" mobiscroll-date="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+</div>
+<div>
+    <span>年月日</span>
+    <input ng-model="mydate" mobiscroll-time="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+</div>
+<div>
+    <span>年月日时分</span>
+    <input ng-model="mydate" mobiscroll-datetime="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+</div>
+<div class="mobibox">
+    <span>年月日 添加至某节点下</span>
+    <input ng-model="mydate" mobiscroll-datetime="settings2" mobiscroll-instance="demo" placeholder="Please Select ..." />
+</div>
+<div class="mobibox" id="target">
+    <span>年月日时</span>
+    <input ng-model="mydate2" mobiscroll-datetime="settings3" mobiscroll-instance="myInstance" placeholder="Please Select ..." />
+</div>
+<div>{{mydate2}}</div>
+</ion-view>

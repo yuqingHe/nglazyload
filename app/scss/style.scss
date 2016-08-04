@@ -1,0 +1,248 @@
+@mixin box-shadow-base($shadow-value){-webkit-box-shadow:$shadow-value; box-shadow:$shadow-value;}
+@mixin background-size100{-webkit-background-size:100% 100%; background-size:100% 100%;}
+$img-pozC:no-repeat center center;
+@function temSize($num) {
+  @return ceil($num /40*100)/100*1rem;
+}
+body{background: white;padding:temSize(0);margin: 0;}
+
+span{font-size: temSize(22);}
+.title{
+    font-size: temSize(200);
+}
+input{border-bottom:1px solid 2px;}
+.qrcode{
+  background: black;
+  width: temSize(100);height: temSize(100);
+  img{width: 100%; height: 100%;}
+}
+
+.red{
+  background: orange;
+}
+.bigbox{width: temSize(300);height: temSize(300);background: powderblue;overflow: scroll;}
+.imgbox{
+  width: temSize(200);height: temSize(1100);position: relative;
+  img{width: 100%;display: inline-block;position: absolute;bottom: temSize(200);}
+}
+.hold{display: none;position: absolute;width: temSize(40);margin-top: 50%;margin-left:50%;height: temSize(40);background: red;top: temSize(0);;}
+.slidebox{
+  position: absolute;top: 50%; height: temSize(200); width: 90%; background: #eaeaea;
+  transition: width 2s;
+
+  .slider{
+     width: temSize(150);
+     height: temSize(150);
+
+     margin-top: temSize(25);
+     position: absolute;
+     transition: background 2s;
+     }
+}
+    #box {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 100, 100, 0.5);
+        overflow: auto;
+    }
+
+    .dark{ background:  black;}
+    .dawn{ background: white;}
+    .nowidth{ width: 0px;}
+    .haswidth{width: 90%;}
+
+
+ .div1{
+  width:0px;
+  height:0px;
+  margin:20px auto;
+  border-top:50px solid yellowgreen;
+  border-bottom:50px solid deeppink;
+  border-left:50px solid bisque;
+  border-right:50px solid chocolate;
+}
+.div2{
+  width:0px;
+  height:0px;
+  margin:20px auto;
+  border-bottom:50px solid deeppink;
+  border-left:50px solid transparent;
+  border-right:50px solid transparent;
+}
+.toothbg{width:100%;height:20px;background:#f3c221;
+    background-image:-webkit-gradient(linear,50% 0,0 100%,from(transparent), color-stop(.5,transparent),color-stop(.5,#5c5537),to(#5c5537)),
+                    -webkit-gradient(linear,50% 0,100% 100%,from(transparent), color-stop(.5,transparent),color-stop(.5,#5c5537),to(#5c5537));
+    background-image:-moz-linear-gradient(50% 0 -45deg,transparent,transparent 50%,#5c5537 50%,#5c5537),
+                    -moz-linear-gradient(50% 0 -135deg,transparent,transparent 50%,#5c5537 50%,#5c5537);                                
+    background-size:30px 15px;
+    background-repeat:repeat-x;
+    background-position:0 100%;                    
+}
+
+.navbox{
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+}
+.black{
+  background: black;
+}
+.white{
+  background: white;
+}
+
+
+.bigbox{
+  width: 100%;
+  height: auto;
+}
+.smlbox{
+  width: 100%;
+  height: temSize(250);
+  position: absolute;
+  width: temSize(380);
+  padding: 0 temSize(40);
+  top:temSize(10);
+  left:50%;
+  margin-left:temSize(-190);
+  animation: hor-animation 3s linear 1s 1; 
+    -webkit-animation: hor-animation 3s linear 1s 1;
+    -moz-animation: hor-animation 3s linear 1s 1;
+
+}
+
+.item, .item2 {
+  width:50px;
+  height: 50px;
+  display: inline-block;
+  position: absolute;
+  top: 100px;
+  left: 0px;
+  background-color: red;
+}
+
+.wraper {
+    animation: vertical-animation 3s ease-in 1s 1; 
+    -webkit-animation: vertical-animation 3s ease-in 1s 1;
+    -moz-animation: vertical-animation 3s ease-in 1s 1;
+}
+
+.wraper .item {
+    animation: hor-animation 3s linear 1s 1; 
+    -webkit-animation: hor-animation 3s linear 1s 1;
+    -moz-animation: hor-animation 3s linear 1s 1;
+}
+ .form{width:temSize(575);height:temSize(880);border-radius:temSize(20);border:temSize(4) solid #412d2d;margin:temSize(60) auto 0 auto;
+      .vote-btn-full{width:temSize(254);height:temSize(84);position: absolute;left: 50%;margin-left: temSize(-127);bottom: temSize(-42);
+      background: #efc122;border:2px solid #333; border-radius: 15px;font-size: temSize(36);color: #333;}
+    }
+    .vote_input_box{padding-top:temSize(15);width:temSize(540);
+      .title{margin:0 auto;height: temSize(60);line-height: temSize(60);}
+      .input_box{
+          .vote_name_input_box,.vote_phone_input_box{width:temSize(520);height:temSize(100);line-height:temSize(100);font-size:temSize(30);}
+        .vote_name_input,.vote_phone_input{height: temSize(50);line-height: temSize(50);left:temSize(85);font-size:temSize(26);top: temSize(25);}
+        .vote_ensure_message{font-size:temSize(20);}
+        h1{font-size:temSize(30);margin-top:temSize(20);}
+        textarea{width:temSize(520);height:temSize(175);border-radius:temSize(5);font-size:temSize(24);padding:temSize(15);margin:0 auto;margin-bottom:temSize(5);}
+
+
+        .vote_useritems2{
+          width:temSize(520);margin:temSize(10) auto 0;text-align:right;font-size:0;
+        }
+        .vote_useritems2_text{
+          font-size: temSize(22);color:#333333;vertical-align: middle;
+        }
+        .vote_useritems2_text.span2{font-weight:bold;color:#5194da;}
+      }
+
+    }
+   
+    .header_box_big{width:temSize(300);height:temSize(300);
+    
+      img{border-radius:temSize(5);}
+ 
+    }
+    .qrcode_box{text-align: center;
+    .qrcode_img{width: temSize(160);height: temSize(160);border-radius: temSize(6);}
+    .qrcode_box——title{font-size: temSize(28);margin-top: temSize(8);}
+    }
+    .vote_slogn_counts{font-size: temSize(24);float: right;margin-top: temSize(-54);margin-right: temSize(22);color: #948129;}
+    .vote_input_detail{margin-bottom: temSize(43);overflow: hidden;
+      .inline_input{width: temSize(541);margin: 0 auto;display: block;
+        .title{font-size: temSize(32);display: inline-block;line-height: temSize(42);width: auto;}
+        .description{display: inline-block;width: auto;}
+      }
+      .title{font-size: temSize(32);width: temSize(541);margin: 0 auto;display: block;line-height: temSize(42);}
+      .description{border-color:#666;font-size: temSize(28);width: temSize(541);margin: 0 auto;display: block;line-height: temSize(42);min-height: temSize(42);max-height: temSize(230);}
+      .description_phone{max-height: temSize(42);}
+      .description_editinfo{max-height: temSize(110);}
+      .address_detail{max-height: temSize(120);}
+     
+      .rule{min-height: temSize(225);overflow: auto;}
+    }
+
+
+            .form{background:#fedd46;position:relative;color:#333;@include box-shadow-base(0 1px 5px 0 rgba(0,0,0,0.4));
+        }
+        .vote_edit_box1{
+          .title{position: relative;}
+        }
+        .header_box_big{text-align: center;background:#efc122;margin:0 auto;
+          img{height:100%;width:100%;border:0;border:none;}
+         }
+         .vote_input_box{position: relative;text-align: center;margin:0 auto;
+         .input_box{text-align: center;
+          .vote_name_input_box,.vote_phone_input_box{margin:0 auto;border-bottom:1px solid #333;text-align:left;color:#333;position:relative;}
+          .vote_name_input,.vote_phone_input{position:absolute;padding-top:0;text-align:left;color:#504617;border: none;background: #fedd46;}
+          .vote_name_input::-webkit-input-placeholder ,.vote_phone_input::-webkit-input-placeholder {color:#504617;}
+           .vote_ensure_message{text-align:right;color:#504617;line-height:2;}
+          textarea{margin: 0 auto;background:#efc122;color:#504617;line-height:1.4;} 
+          textarea::-webkit-input-placeholder{color:#504617;}
+          h1{text-align:left;font-weight:normal;line-height:1.8;}
+         }
+         } 
+
+     .mask{background-color: #000;position: absolute;height: 100%;width: 100%;left: 0;top: 0;right: 0;bottom: 0;opacity: 0.5}
+     .placebox{
+       width: 100%;
+       height: 290px;
+     }
+
+.imgbox{
+  width: temSize(360);height: temSize(202);border: 2px solid #fff;background: red;margin: 0 auto;border-radius: temSize(8);
+}     
+.poster{
+  background: black;
+  width: 320px;height: 568px;position:absolute;text-align:center;
+}
+
+.poster1-logo{
+  width: temSize(220);
+  height: temSize(220);
+  border: 2px solid #fff;
+  border-radius: temSize(110);
+  margin:0 auto;
+  margin-top: temSize(185);
+}
+.poster1-title{
+  font-size:temSize(56);
+  color:#fff;
+  margin-top: temSize(40);
+
+}
+.poster-hold-line{
+  width:temSize(432);
+  height:temSize(4);
+  background:#fff;
+  margin:0 auto;
+  margin-top:temSize(20);
+}
+.poster1-subtitle{
+  font-size:temSize(36);
+  color:#fff;
+  margin-top: temSize(30);
+}

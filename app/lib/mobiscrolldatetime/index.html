@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Mobiscroll</title>
+
+    <!-- jQuery Include | MAKE SURE TO INCLUDE BEFORE ANGULAR -->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+    <!-- Angular Include -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.7/angular-animate.min.js"></script>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link href="css/mobiscroll.custom-2.17.0.min.css" rel="stylesheet" type="text/css" />
+    <script src="js/mobiscroll.custom-2.17.0.min.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        /*****************************************************************/
+        /* Demo Page styling, you can ignore this in your implementation */
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+        input, select { width: 100%; padding: .625em; margin: 0 0 .625em 0; border: 1px solid #aaa; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+        .header { padding: .625em; background: #5185a8;}
+        .header h1 { margin: 0; padding: 0; color: #fff; text-align: center; font-size: 1.25em; font-weight: bold; text-shadow: 1px 1px 1px #000; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        #main, .demo-wrapper { padding: 1em; }
+        button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 0.8em 2.6em;
+            margin: 20px 10px 0 0;
+            outline: 0;
+            border: 0;
+            overflow: visible;
+            cursor: pointer;
+            color: #fff;
+            background: #5185a8;
+            font-family: Arial, sans-serif, verdana;
+            font-size: 14px;
+            font-weight: 100;
+            -webkit-transition: background 0.3s ease-out;
+            -moz-transition: background 0.3s ease-out;
+            -o-transition: background 0.3s ease-out;
+            transition: background 0.3s ease-out;
+        }
+        
+        button:hover {
+            background: #34566d;
+        }
+
+        input {
+            width: 100%;
+            margin: 0 0 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 0;
+            background: #fff;
+            font-family: Arial, sans-serif,verdana;
+            text-shadow: none;
+            color: #000;
+            font-size: 15px;
+            -webkit-appearance: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .demo-iframe { 
+            padding: 10px 10px 10px 10px; 
+            text-shadow: none; 
+        }
+        /* Demo page styling END */
+        /*************************/
+
+    </style>
+
+    <script>
+        // -------------------------------------------------------------------
+        // Demo page code START, you can ignore this in your implementation
+        angular.element(document).ready(function() {
+            angular.bootstrap($('#main'), ['mainModule']);
+        });
+        angular.module('mainModule', [])
+        .controller('mainController', ['$scope', function($scope){
+            $scope.alreadyBooted = {};
+            $scope.templates = {};
+            $scope.$watch('demo', changeDemo);
+            
+            var settings = ['theme', 'mode', 'display', 'language'];
+
+            $scope.$watchGroup(settings, function() { 
+                changeDemo($scope.demo);
+            });
+
+            function changeDemo(newValue){
+                for(var demo in $scope.alreadyBooted)
+                {
+                    var scope = $('#demo_cont_'+demo).addClass('ng-hide');
+                }
+
+                if (newValue) {
+                    var element;
+                    if ($scope.alreadyBooted[newValue]) {
+                        $('#demo_cont_'+newValue).remove();
+                        $('body').append($($scope.templates[newValue]));
+                        element = $('#demo_cont_'+newValue);
+                    }
+                    else {
+                        $scope.alreadyBooted[newValue] = true;
+                        element = $('#demo_cont_'+newValue);
+                        $scope.templates[newValue] =  element[0].outerHTML;
+                    }
+                    element.removeClass('ng-hide');
+                    angular.module(newValue).config(demoPageConfigurator);
+                    angular.bootstrap(element, [newValue]);
+                }
+                 
+                function demoPageConfigurator($provide) {
+                    $provide.decorator('$rootScope',['$delegate', function($delegate) {
+                        for(var i =0;i<settings.length;i++)
+                        {
+                            $delegate[settings[i]] = $scope[settings[i]];    
+                        }
+                        return $delegate;
+                    }]);    
+                }
+            }
+        }]);
+        // Demo page code END
+        // -------------------------------------------------------------------
+
+        /* Basic usage date demo script */
+        angular
+        .module('datetimeDate', ['mobiscroll-datetime'])
+        .controller('demoController', ['$scope', function($scope) {
+        
+            $scope.settings = {
+                theme: $scope.theme,      // Specify theme like: theme: 'ios' or omit setting to use default
+                lang: $scope.language,    // Specify language like: lang: 'pl' or omit setting to use default
+                display: $scope.display,  // Specify display mode like: display: 'bottom' or omit setting to use default
+                mode: $scope.mode         // More info about mode: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-mode
+            };
+        
+        }]);
+
+        /* Datetime with invalids demo script */
+        angular
+        .module('datetimeInvalid', ['mobiscroll-datetime'])
+        .controller('demoController', ['$scope', function($scope) {
+
+            var now = new Date();
+        
+            $scope.settings = {
+                theme: $scope.theme,                                                  // Specify theme like: theme: 'ios' or omit setting to use default
+                lang: $scope.language,                                                // Specify language like: lang: 'pl' or omit setting to use default
+                display: $scope.display,                                              // Specify display mode like: display: 'bottom' or omit setting to use default
+                mode: $scope.mode,                                                    // More info about mode: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-mode
+                minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),  // More info about minDate: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-minDate
+                invalid: [ 'w0', 'w6', '5/1', '12/24', '12/25' ]                      // More info about invalid: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-invalid
+            };
+        
+        }]);
+
+        /* Date with min and max demo script */
+        angular
+        .module('datetimeMinmax', ['mobiscroll-datetime'])
+        .controller('demoController', ['$scope', function($scope) {
+        
+            $scope.settings = {
+        
+                theme: $scope.theme,        // Specify theme like: theme: 'ios' or omit setting to use default
+                lang: $scope.language,                // Specify language like: lang: 'pl' or omit setting to use default
+                display: $scope.display,              // Specify display mode like: display: 'bottom' or omit setting to use default
+                mode: $scope.mode,                    // More info about mode: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-mode
+                minDate: new Date(2014, 8, 15),       // More info about minDate: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-minDate
+                maxDate: new Date(2024, 8, 14)    };  // More info about maxDate: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-maxDate
+        
+        }]);
+
+        /* Basic usage time demo script */
+        angular
+        .module('datetimeTime', ['mobiscroll-datetime'])
+        .controller('demoController', ['$scope', function($scope) {
+        
+            $scope.settings = {
+                theme: $scope.theme,      // Specify theme like: theme: 'ios' or omit setting to use default
+                lang: $scope.language,    // Specify language like: lang: 'pl' or omit setting to use default
+                display: $scope.display,  // Specify display mode like: display: 'bottom' or omit setting to use default
+                mode: $scope.mode,        // More info about mode: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-mode
+                buttons: [],              // More info about buttons: http://docs.mobiscroll.com/angular/2-17-0/datetime#!opt-buttons
+                headerText: false         // More info about headerText: http://docs.mobiscroll.com/angular/2-17-0/datetime#!localization-headerText
+            };
+        
+        }]);
+
+        </script>
+</head>
+<body>
+    <!-- ------------------------------------------------------------------ -->
+    <!-- Demo configurator markup START, ignore this in your implementation -->
+    <div class="header">
+        <h1>Mobiscroll</h1>
+    </div>
+    <div id="main" ng-controller="mainController">
+        <div>
+            <label for="theme">Theme</label>
+            <select ng-model="theme" name="theme" id="theme" class="settings">
+                <option value="">Default / Auto</option>
+                <option value="mobiscroll">Mobiscroll</option>
+                <option value="material">Material</option>
+            </select>
+        </div>
+        <div>
+            <label for="mode">Mode</label>
+            <select ng-model="mode" name="mode" id="mode" class="settings">
+                <option value="">Default</option>
+                <option value="scroller">Scroller</option>
+                <option value="clickpick">Clickpick</option>
+                <option value="mixed">Mixed</option>
+            </select>
+        </div>
+        <div>
+            <label for="display">Display</label>
+            <select ng-model="display" name="display" id="display" class="settings">
+                <option value="">Default</option>
+                <option value="modal">Modal</option>
+                <option value="inline">Inline</option>
+                <option value="bubble">Bubble</option>
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+            </select>
+        </div>
+        <div>
+            <label for="language">Language</label>
+            <select ng-model="language" name="language" id="language" class="settings">
+                <option value="">English</option>
+                <option value="zh">Chinese</option>
+            </select>
+        </div>
+        <div>
+            <label for="demo">Demo</label>
+            <select ng-model="demo" name="demo" id="demo" class="settings">
+                <option value="">Please select a demo</option>
+                <option value="datetimeDate" selected>Basic usage date</option>
+                <option value="datetimeInvalid" >Datetime with invalids</option>
+                <option value="datetimeMinmax" >Date with min and max</option>
+                <option value="datetimeTime" >Basic usage time</option>
+            </select>
+        </div>
+    </div>
+    <!-- Demo configurator markup END -->
+    <!-- ------------------------------------------------------------------ -->
+
+    <!-- ------------------------------------------------------------------------------- -->
+    <!-- Basic usage date START -->
+    <div id="demo_cont_datetimeDate" class="ng-hide demo-wrapper"  ng-controller="demoController">
+        <input ng-model="mydate" mobiscroll-date="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+    
+        <button ng-click="demo.clear()">Clear</button>
+        <button ng-click="demo.show()">Show</button>
+    
+    </div>
+    <!-- Basic usage date END -->
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <!-- ------------------------------------------------------------------------------- -->
+    <!-- Datetime with invalids START -->
+    <div id="demo_cont_datetimeInvalid" class="ng-hide demo-wrapper"  ng-controller="demoController">
+        <input ng-model="mydatetime" mobiscroll-datetime="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+    
+        <button ng-click="demo.clear()">Clear</button>
+        <button ng-click="demo.show()">Show</button>
+    
+    </div>
+    <!-- Datetime with invalids END -->
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <!-- ------------------------------------------------------------------------------- -->
+    <!-- Date with min and max START -->
+    <div id="demo_cont_datetimeMinmax" class="ng-hide demo-wrapper"  ng-controller="demoController">
+        <input ng-model="mydate" mobiscroll-date="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+    
+        <button ng-click="demo.clear()">Clear</button>
+        <button ng-click="demo.show()">Show</button>
+    
+    </div>
+    <!-- Date with min and max END -->
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <!-- ------------------------------------------------------------------------------- -->
+    <!-- Basic usage time START -->
+    <div id="demo_cont_datetimeTime" class="ng-hide demo-wrapper"  ng-controller="demoController">
+        <input ng-model="mytime" mobiscroll-time="settings" mobiscroll-instance="demo" placeholder="Please Select ..." />
+    
+        <button ng-click="demo.clear()">Clear</button>
+        <button ng-click="demo.show()">Show</button>
+    
+    </div>
+    <!-- Basic usage time END -->
+    <!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

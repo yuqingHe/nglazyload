@@ -1,0 +1,39 @@
+{
+  "name": "quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "browser-sync start --server --files=\"index.html,./build/*.js\"&&webpack-dev-server --hot --inline"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [
+    "quick",
+    "start",
+    "tutorial"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": ""
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "grunt": "latest",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-sass": "latest",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.2.0",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^3.2.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

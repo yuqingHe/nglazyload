@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <title>VS</title>
+
+  <link rel="stylesheet" href="./app/css/style.css">
+  <link rel="stylesheet" href="./app/css/mobiscroll.custom-2.17.0.min.css">
+  <script src="./lib/jquery-2.1.4.min.js"></script>
+  <script src="./lib/ionic.bundle.js"></script>
+  <script src="./app/index.js"></script>
+  <script src="./lib/ScreenAdaptation.js"></script>
+
+  <script src="./lib/mobiscroll.custom-2.17.0.min.js"></script>
+
+</head>
+
+<body ng-app="appstart">
+
+  <div ng-controller="start">
+    <h2 class="title">{{hello}}</h2>
+    <h2>www.baidu.comddddd</h2>
+    <input type="text" ng-model="inputtext">
+    <button ng-disabled="!inputtext.length||ifsubmit" ng-click="clickme()"  ng-class="!inputtext.length?'red':(ifsubmit?'red':'')">点dddd我</button>
+    <img src="http://qacdn.1course.cn/xbshow/Activity/20160701224721-88603" alt="">
+
+    <input type="text" urlreg><span class="countword">0</span>
+    <!--<input type="text" ng-model="hello">{{hello2}}
+    <input type="file" file-model="myFile" />
+    <div>
+      <img ng-src="{{imageSrc}}" style="max-width:300px;max-height:300px;margin:0 auto;display:block;" />
+    </div>
+    <span>HH</span> <input type="tel" maxlength="2">
+    <input type="text" countword><span class="countword">0</span>
+
+
+
+    <input type="" ng-model="pattern" />
+    {{pattern}}-->
+    <div class="qrcode">
+      <img ng-src="{{imgurl}}" >
+    </div>
+    <a href="www.baidu.com" dis>百度</a>
+  </div>
+</body>
+
+</html>

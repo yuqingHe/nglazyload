@@ -1,0 +1,32 @@
+<ion-view>
+    <div class="mask"></div>
+    <div>
+        <form class="form" role="form" id="basic_form" name="basic_form" novalidate="">
+            <div class="vote_input_box">
+                <div class="header_box_big" ng-click="updateHeadImg()">
+                    <input type="text" ng-model="userInfo.headImg" ng-style="{'display':false?'block':'none'}">
+                    <div class="header_border_big"></div>
+                </div>
+                <div class="input_box">
+                    <div class="vote_name_input_box ">姓名
+                        <input class="vote_name_input step3_input" placeholder="您的姓名" required="" ng-model="userInfo.name" maxlength="6" changesize/>
+                    </div>
+                    <div class="vote_phone_input_box ">手机
+                        <input class="vote_phone_input step3_input" placeholder="您的电话" required="" ng-model="userInfo.phone" type="tel" maxlength="11" textinput/>
+                    </div>
+                    <div class="vote_useritems2">
+                        <div class="user_terms_checkdiv" ><span class="user_terms_checkbox"></span></div>
+                        <span class="vote_useritems2_text">同意</span><span class="vote_useritems2_text span2" >用户条款</span>
+                    </div>
+                    <h1>参赛宣言</h1>
+                    <textarea class="vote_slogn_input step3_input" ng-focus="focus()" ng-blur="blur()" required="" placeholder="快点留下你的个性宣言吧!" maxlength="50" changesize></textarea>
+                    <div class="vote_slogn_counts">{{userInfo.slogn.length||0}}/50</div>
+                </div>
+            </div>
+            <button ng-click="publish()" class="vote-btn-full" >报名</button>
+        </form>
+        <input type="button" id="btn" style="width:0;height:0;">
+
+        <div class="placebox" ng-if="ifinput"></div>
+    </div>
+</ion-view>
