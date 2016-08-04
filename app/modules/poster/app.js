@@ -3,21 +3,19 @@
 define([
 "ionic",
 "modules/poster/controller",
-"directiveApp"
-
+// "directiveApp"
 ], function () {
 
     return angular.module("posterApp", [
         "ionic",
         "Poster.Controller",
-        "directiveApp"
+        // "directiveApp"
     ])
         .config([
             '$stateProvider','$compileProvider',
             function ($stateProvider,$compileProvider) {
                 console.log($compileProvider);
                 $stateProvider.state('/poster', {
-                    //parent: 'activity',
                     cache: false,
                     url: '/poster',
                     templateUrl: 'modules/poster/test.html',
@@ -25,7 +23,7 @@ define([
                     title:"海报",
                     resolve: {
                        vm:function () {
-                           console.log("ddd");                           
+                           
                        }
                     }
 
