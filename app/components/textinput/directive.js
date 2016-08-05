@@ -11,25 +11,19 @@ define(["ionic"], function () {
         .directive("textinput", [
             "$window", "$timeout", "$q", "$ionicScrollDelegate", function ($window, $timeout, $q, $ionicScrollDelegate) {
                 return {
-                    restrict: "A",
+                    restrict: "AE",
                     //隔离作用域
                     scope: {},
                     templateUrl: "components/textinput/text_input.html",
                     link: function (scope, iElement, iAttr) {
                        console.log(iElement);
                         var maxLength = iAttr.maxlength;
-
                         scope.scroll = function () {
-                            //alert(iElement.offset().top);
                             if(iElement[0].getBoundingClientRect().top>document.documentElement.clientHeight-290){
                                 $ionicScrollDelegate.scrollTo(0, document.documentElement.clientHeight-290, false)
                             }
-                            //$ionicScrollDelegate.scroll
-                            
                         }
                     }
-
-
                 };
             }
         ]
@@ -37,20 +31,15 @@ define(["ionic"], function () {
             "$window", "$timeout", "$q", "$ionicScrollDelegate", function ($window, $timeout, $q, $ionicScrollDelegate) {
                 return {
                     restrict: "A",
-                   
                     scope: {},
                     link: function (scope, iElement, iAttr) {
-
                             console.log(iElement);
                             iElement.bind("focus",function () {
                                 //iElement.scroll(0,320);
                                 scope.ifinput = true;
                                 $ionicScrollDelegate.scrollBottom();
                             })
-
                     }
-
-
                 };
             }
         ]

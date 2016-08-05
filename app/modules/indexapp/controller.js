@@ -26,7 +26,6 @@ define([
         console.log($scope.host);
 
         $scope.publish = function () {
-            //  $scope.ocLazyLoadModule('/poster');
               $scope.$state.go("/poster");
 
         }

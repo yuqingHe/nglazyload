@@ -3,9 +3,10 @@
  * time: 2016年7月4日14:50:03
  * description:  requirejs配置文件
  */
-
+//配置requireJS請求路徑
 requirejs.config({
-    baseUrl: "./app",
+    // 压缩版入口  baseUrl: "./built",
+     baseUrl: "./app",
     paths: {
         "ionic": "lib/ionic/js/ionic.bundle",
         "ocLazyLoad": "lib/dist/ocLazyLoad.require",
@@ -36,7 +37,7 @@ requirejs.config({
         },
     }
 });
-
+//加载app模块,对应app目录下的app模块
 require([
     "app", window.wxlib
 ], function (app, wxlib) {

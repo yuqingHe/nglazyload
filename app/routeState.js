@@ -3,21 +3,39 @@ define([
 ], function (require, factory) {
 
     return {
+        /**
+         * 路由和模块的映射关系,即state和module的映射
+         */
         config: {
             "/index": "modules/indexapp/app",
             "/mobi": "mobiapp",
             "/poster": "modules/poster/app"
         },
+        /**
+         * 模块之间的依赖关系,即表明某个模块依赖哪些其他的模块,可以是模板/指令/其他模块等
+         */
         relyConfig: {
-            "modules/poster/app": ["components/findurl/app"],
+            //poster 模块依赖components/textinput/app这个directive
+            "modules/poster/app": ["components/textinput/app"],
         },
+        /**
+         * 系统初次加载模块,可以不配置,默认是index
+         */
         indexModule: {
             moduleName: "modules/indexapp/app",
             state: "/index"
         },
+        /**
+         * 根据state获取模块
+         */
         getModuleByState: function (state) {
             return this.config[state];
         },
+        /**
+         * 根据state获取模块,
+         * states : 路由数组
+         * @returns  模块数组
+          */
         getModuleByStates: function (states) {
             var modules = [];
             if (Object.prototype.toString.call(states) === "[object Array]") {
@@ -34,6 +52,9 @@ define([
             }
             return modules;
         },
+        /**
+         * 根据模块数组获取其依赖的模块数组
+         */
         getRelyModuleByModules:function(modules){
             var relyModules=[];
             modules.forEach(function(module){

@@ -1,11 +1,13 @@
 
 define([
     "ionic",
+    // "modules/common",
     "moduleApp",
     "remlib",
     "ocLazyLoad",
     // "directiveApp",
     "commonServices",
+    //路由映射配置
     "routeState"
 ],
     function () {
@@ -35,9 +37,11 @@ define([
                 "$rootScope", "$state", "$stateParams", "$ionicPlatform", '$ocLazyLoad',
                 function ($rootScope, $state, $stateParams, $ionicPlatform, $ocLazyLoad) {
                     $rootScope.$state = $state;
+                    //缓存angular的 $state.go方法
                     var func_go = $state.go;
                     /**
-                     * 解析URL路径,判断是否有锚点
+                     * 解析URL路径,判断是否有锚点,以便直接定位到某个页面
+                     * TODO 是否有权限问题
                      */
                     var getUrlAnchor = function () {
                         var url = window.location.href, state = "";
@@ -48,16 +52,17 @@ define([
                         return state;
                     };
                     /**
-                     * 根据state的路径来获取其父state
+                     * 解析路由,如果有父路由,则将其父路由也解析出来,返回一个包含当前state所有父级state的数组
+                     * 因为可能会出现形如A.B.C这样的state,子路由可能会强依赖父路由,因此需要同时把父路由加载
                      */
                     var getStatesByPath = function (state) {
-                        var pointPostion = 0, states = [];
+                        var pointPosition = 0, states = [];
                         do {
-                            pointPostion = state.indexOf('.', pointPostion + 1);
-                            if (pointPostion > -1) {
-                                states.push(state.substring(0, pointPostion));
+                            pointPosition = state.indexOf('.', pointPosition + 1);
+                            if (pointPosition > -1) {
+                                states.push(state.substring(0, pointPosition));
                             }
-                        } while (state.indexOf('.', pointPostion + 1) > 0);
+                        } while (state.indexOf('.', pointPosition + 1) > 0);
                         //记得把当前的state加进去
                         states.push(state);
                         return states;
@@ -66,24 +71,28 @@ define([
                      * 根据state和module,加载模块并跳转
                      */
                     var doLazyLoadAndGO = function (state, module, params, option) {
-                        //判断是否有父子模块
+                        //解析路由
                         var states = getStatesByPath(state);
-                        //TODO 模块的先后加载是否有问题还需要测试
+                        //TODO 模块的先后加载是否有问题还需要测试,经测试 没有问题
+                        //根据state,去获取state对应的所有模块
                         var modules = $rootScope.routeState.getModuleByStates(states);
-                        var relyModules= $rootScope.routeState.getRelyModuleByModules(modules);
+                        //根据模块,获取所有的依赖模块
+                        var relyModules = $rootScope.routeState.getRelyModuleByModules(modules);
 
-                        $ocLazyLoad.load(relyModules.concat(modules)).then(function () {
+                        //加载所有模块,完成后执行跳转
+                        $ocLazyLoad.load(modules.concat(relyModules)).then(function () {
                             func_go(state, params, option);
                         }, function (e) {
                             console.log(e);
                         });
                     };
 
-                   
+
                     //加載route-moduley映射
                     requirejs(['routeState'], function (routeState) {
                         var indexModule = "indexapp", indexState = "/index", configIndexObj = routeState.indexModule, anchorState = getUrlAnchor();
                         $rootScope.routeState = routeState;
+                        //如果地址栏中有锚点,说明是直接跳转到某个页面,修改indexState变量
                         if (anchorState) {
                             indexState = anchorState;
                             indexModule = routeState.getModuleByState(indexState);
@@ -103,27 +112,10 @@ define([
                             console.log("模块跳转出错,出错的路由为" + state);
                             return;
                         }
-                        $ocLazyLoad.load(module).then(function () {
-                            func_go(state, params, option);
-                        }, function (e) {
-                            console.log(e);
-                        });
+                        doLazyLoadAndGO(state, module);
+                        return;
                     }
 
-
-                    // $rootScope.ocLazyLoadModule = function (state) {
-                    //     var module = $rootScope.routeState.getModuleByState(state);
-                    //     if (!module) {
-                    //         console.log("模块跳转出错,出错的路由为" + state);
-                    //         return ;
-                    //     }
-                    //     $ocLazyLoad.load(module).then(function () {
-                    //         $state.go(state);
-                    //     }, function (e) {
-                    //         console.log(e);
-                    //     });
-
-                    // }
                     $rootScope.$stateParams = $stateParams;
                     window.changeFontSizeNewMicoSite();
 

@@ -21,10 +21,7 @@ define(["ionic"], function () {
                         } else {
                             return temp;
                         }
-
-
                     }
-
                     element.bind('blur', function (event) {
                         element[0].value = returnurl(element[0].value);
                     });

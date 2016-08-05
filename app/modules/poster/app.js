@@ -3,13 +3,12 @@
 define([
 "ionic",
 "modules/poster/controller",
-// "directiveApp"
+"modules/poster/directive",
 ], function () {
 
     return angular.module("posterApp", [
         "ionic",
         "Poster.Controller",
-        // "directiveApp"
     ])
         .config([
             '$stateProvider','$compileProvider',
@@ -23,7 +22,7 @@ define([
                     title:"海报",
                     resolve: {
                        vm:function () {
-                           
+
                        }
                     }
 

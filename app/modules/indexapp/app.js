@@ -12,9 +12,7 @@ define([
         .config([
             '$stateProvider',
             function ($stateProvider) {
-
                 $stateProvider.state('/index', {
-                    //parent: 'activity',
                     cache: false,
                     url: '/index',
                     templateUrl: 'modules/indexapp/index.html',

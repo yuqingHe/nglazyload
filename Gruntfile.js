@@ -76,6 +76,12 @@ module.exports = function (grunt) {
                         }, {
                             name: 'modules/mobiapp/app',
                             exclude: ['modules/common']
+                        }, {
+                            name: 'modules/poster/app',
+                            exclude: ['modules/common']
+                        }, {
+                            name: 'components/textinput/app',
+                            exclude: ['modules/common']
                         }],
                 }
             }
@@ -119,6 +125,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
 
+//虚拟服务器,在命令行输入grunt后直接打开浏览器访问该项目
     grunt.registerTask('default', ['browserSync', 'watch']);
+    //压缩文件
     // grunt.registerTask('default', ['requirejs']);
 };
