@@ -2,15 +2,9 @@
 
 module.exports = function (grunt) {
 
-    var cfg = {
-        src: "app/",
-        dist: "dist/",
-        tmp: "tmp/"
-    };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        cfg: cfg,
         watch: {
             files: ['app/scss/*.scss'],
             tasks: ['sass']
@@ -25,32 +19,17 @@ module.exports = function (grunt) {
                 }
             }
         },
-        imagemin: {
-            dynamic: {
-                options: {
-                    optimizationLevel: 3 // png图片优化水平，3是默认值，取值区间0-7
-                },
-                files: [
-                    {
-                        expand: true, // 开启动态扩展
-                        cwd: "app/img/", // 当前工作路径
-                        src: ["**/*.{png,jpg,gif}"], // 要出处理的文件格式(images下的所有png,jpg,gif)
-                        dest: "app/img/" // 输出目录(直接覆盖原图)
-                    }
-                ]
-            }
+          clean: {
+            tmp: "built2",
         },
         requirejs: {
             compile: {
                 "options": {
                     paths: {
                         "ionic": "lib/ionic/js/ionic.bundle",
+                        "jquery": "lib/jquery/jquery-1.11.1.min",
                         "ocLazyLoad": "lib/dist/ocLazyLoad.require",
-                        'remlib': "lib/remlib/ScreenAdaptation",
-                        'jquery': "lib/jquery/jquery-2.1.4.min",
                         "mobiscrolldatetime": "lib/mobiscrolldatetime/js/mobiscroll.custom-2.17.0.min",
-                        "directiveApp": "components/app",
-                        "commonServices": "services/common",
                         "routeState": "routeState"
                     },
                     optimize: "uglify",
@@ -68,21 +47,15 @@ module.exports = function (grunt) {
                     baseUrl: "./app",
                     dir: 'built2',
                     modules: [{
-                        name: 'modules/common',
+                        name: 'commonlibs',
                         include: ["ionic", "ocLazyLoad", 'jquery', "mobiscrolldatetime", "routeState"]
                     }, {
-                            name: 'modules/indexapp/app',
-                            exclude: ['modules/common']
-                        }, {
-                            name: 'modules/mobiapp/app',
-                            exclude: ['modules/common']
-                        }, {
-                            name: 'modules/poster/app',
-                            exclude: ['modules/common']
-                        }, {
-                            name: 'components/textinput/app',
-                            exclude: ['modules/common']
-                        }],
+                        name: 'modules/indexapp/app',
+                        exclude: ['commonlibs']
+                    }, {
+                        name: 'modules/mobiapp/app',
+                        exclude: ['commonlibs']
+                    }],
                 }
             }
         },
@@ -95,7 +68,8 @@ module.exports = function (grunt) {
                     '*/*/*/*.js',
                     '*/*/*/*.html',
                     '*/*/*.html',
-                    '*.html']
+                    '*.html'
+                ]
             },
             options: {
                 watchTask: true,
@@ -104,29 +78,16 @@ module.exports = function (grunt) {
                 }
             }
         },
-        concat: {
-            options: {
-                separator: ';'
-            },
-            dist: {
-                files: {
-                    "app/modules/indexapp/app1.js": ["app/modules/indexapp/app.js",
-                        "app/modules/indexapp/controller.js",
-                    ]
-                }
-            }
-        }
+        
     });
 
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks('grunt-browser-sync');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-
-//虚拟服务器,在命令行输入grunt后直接打开浏览器访问该项目
+    //虚拟服务器,在命令行输入grunt后直接打开浏览器访问该项目
     grunt.registerTask('default', ['browserSync', 'watch']);
     //压缩文件
-    // grunt.registerTask('default', ['requirejs']);
+    // grunt.registerTask('default', ['clean','requirejs']);
 };

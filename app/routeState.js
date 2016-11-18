@@ -7,9 +7,9 @@ define([
          * 路由和模块的映射关系,即state和module的映射
          */
         config: {
-            "/index": "modules/indexapp/app",
-            "/mobi": "mobiapp",
-            "/poster": "modules/poster/app"
+            "index": "modules/indexapp/app",
+            "mobi": "modules/mobiapp/app",
+            "poster": "modules/poster/app"
         },
         /**
          * 模块之间的依赖关系,即表明某个模块依赖哪些其他的模块,可以是模板/指令/其他模块等
@@ -23,23 +23,23 @@ define([
          */
         indexModule: {
             moduleName: "modules/indexapp/app",
-            state: "/index"
+            state: "index"
         },
-        /**
+            /**
          * 根据state获取模块
          */
-        getModuleByState: function (state) {
+        getModuleByState: function(state) {
             return this.config[state];
         },
         /**
          * 根据state获取模块,
          * states : 路由数组
          * @returns  模块数组
-          */
-        getModuleByStates: function (states) {
+         */
+        getModuleByStates: function(states) {
             var modules = [];
             if (Object.prototype.toString.call(states) === "[object Array]") {
-                states.forEach(function (state) {
+                states.forEach(function(state) {
                     var module = this.getModuleByState(state);
                     if (module) {
                         modules.push(module);
@@ -47,7 +47,7 @@ define([
                         console.log('无法找到state' + state + "对应的模块,请检查配置文件");
                     }
                 }, this)
-            } else if (typeof (states) == "string") {
+            } else if (typeof(states) == "string") {
                 modules.push(this.getModuleByState(states));
             }
             return modules;
@@ -55,17 +55,17 @@ define([
         /**
          * 根据模块数组获取其依赖的模块数组
          */
-        getRelyModuleByModules:function(modules){
-            var relyModules=[];
-            modules.forEach(function(module){
-                var relyModule=this.relyConfig[module];
-                if(relyModule && relyModule.length>0){
-                 relyModules=  relyModules.concat(relyModule); 
-                //    relyModules[module]=relyModule;
-                }else{
-                    console.log("模块  "+ module+"  没有依赖的模块");
+        getRelyModuleByModules: function(modules) {
+            var relyModules = [];
+            modules.forEach(function(module) {
+                var relyModule = this.relyConfig[module];
+                if (relyModule && relyModule.length > 0) {
+                    relyModules = relyModules.concat(relyModule);
+                    //    relyModules[module]=relyModule;
+                } else {
+                    console.log("模块  " + module + "  没有依赖的模块");
                 }
-            },this);
+            }, this);
             return relyModules;
         }
     }

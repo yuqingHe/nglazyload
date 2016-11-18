@@ -4,7 +4,6 @@ define([
 "ionic",
 "modules/indexapp/controller"
 ], function () {
-
     return angular.module("indexApp", [
         "ionic",
         "Index.Controller"
@@ -12,13 +11,14 @@ define([
         .config([
             '$stateProvider',
             function ($stateProvider) {
-                $stateProvider.state('/index', {
+                $stateProvider.state('index', {
                     cache: false,
                     url: '/index',
-                    templateUrl: 'modules/indexapp/index.html',
+                    templateUrl: 'app/modules/indexapp/template.html',
                     controller: 'indexController',
                     title:"首页",
-                    resolve: {                       
+                    resolve: {   
+                                            
                     }
                 });
             }

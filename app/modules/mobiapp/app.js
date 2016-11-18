@@ -12,10 +12,9 @@ define([
         ]).config([
                 '$stateProvider','$controllerProvider',
                 function ($stateProvider) {
-
-                    $stateProvider.state('/mobi', {
+                    $stateProvider.state('mobi', {
                         url: '/mobi',
-                        templateUrl: 'modules/mobiapp/index.html',
+                        templateUrl: 'app/modules/mobiapp/template.html',
                         controller: 'mobiController',
                         title: "首页"
                     });
